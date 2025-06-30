@@ -1,0 +1,12 @@
+bs4
+python-dotenv
+requests
+pdfplumber
+tqdm
+python-docx
+openpyxl
+spacy
+networkx
+faiss-cpu
+sentence-transformers
+google-generativeai

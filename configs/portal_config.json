@@ -1,0 +1,15 @@
+{
+  "portal_name": "MOSDAC",
+  "base_url": "https://www.mosdac.gov.in",
+  "geo_level": "state",
+  "content_types": ["HTML", "PDF", "XLSX"],
+  "scraping_rules": {
+    "missions": "/satellite.html",
+    "catalog": "/catalog/satellite.php",
+    "faq": "/faq-page"
+  },
+  "file_rules": {
+    "pdf_parser": "pdfplumber",
+    "docx_parser": "python-docx"
+  }
+}
