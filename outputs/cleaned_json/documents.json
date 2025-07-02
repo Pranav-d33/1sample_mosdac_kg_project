@@ -110,14 +110,94 @@
     "source_page": "https://www.mosdac.gov.in/scatsat-1-references"
   },
   {
-    "title": "STQC.pdf",
-    "url": "https://www.mosdac.gov.in/docs/STQC.pdf",
-    "source_page": "https://www.mosdac.gov.in/atlases"
+    "title": "Analysed-Winds",
+    "url": "https://www.mosdac.gov.in/docs/Analysed-Winds.pdf",
+    "source_page": "https://www.mosdac.gov.in/oceansat-2-references"
+  },
+  {
+    "title": "High Spatial density winds",
+    "url": "https://www.mosdac.gov.in/docs/High_Spatial_density_winds.pdf",
+    "source_page": "https://www.mosdac.gov.in/oceansat-2-references"
+  },
+  {
+    "title": "ATBD_SCAT_V1",
+    "url": "https://www.mosdac.gov.in/docs/ATBD_SCAT_v1_fuldoc2.pdf",
+    "source_page": "https://www.mosdac.gov.in/oceansat-2-references"
   },
   {
     "title": "STQC.pdf",
     "url": "https://www.mosdac.gov.in/docs/STQC.pdf",
-    "source_page": "https://www.mosdac.gov.in/saral-altika"
+    "source_page": "https://www.mosdac.gov.in/oceansat-2-references"
+  },
+  {
+    "title": "OCM_AOD_ATBD",
+    "url": "https://www.mosdac.gov.in/docs/OCM_AOD_ATBD V1_1.pdf",
+    "source_page": "https://www.mosdac.gov.in/oceansat3-references"
+  },
+  {
+    "title": "OCM_AnalysedCHL_GlobalOcean_ATBD",
+    "url": "https://www.mosdac.gov.in/docs/ATBD_AnalysedCHL_GlobalOcean.pdf",
+    "source_page": "https://www.mosdac.gov.in/oceansat3-references"
+  },
+  {
+    "title": "OCM_IOPS_ATBD",
+    "url": "https://www.mosdac.gov.in/docs/OCM_IOPS_ATBD.pdf",
+    "source_page": "https://www.mosdac.gov.in/oceansat3-references"
+  },
+  {
+    "title": "STQC.pdf",
+    "url": "https://www.mosdac.gov.in/docs/STQC.pdf",
+    "source_page": "https://www.mosdac.gov.in/oceansat3-references"
+  },
+  {
+    "title": "MADRAS L1-Product definition",
+    "url": "https://www.mosdac.gov.in/docs/MADRAS_L1.pdf",
+    "source_page": "https://www.mosdac.gov.in/megha-tropiques-references"
+  },
+  {
+    "title": "SAPHIR L1-Product definition",
+    "url": "https://www.mosdac.gov.in/docs/SAPHIR_L1.pdf",
+    "source_page": "https://www.mosdac.gov.in/megha-tropiques-references"
+  },
+  {
+    "title": "SCARAB L1-Product definition",
+    "url": "https://www.mosdac.gov.in/docs/SCARAB_L1.pdf",
+    "source_page": "https://www.mosdac.gov.in/megha-tropiques-references"
+  },
+  {
+    "title": "ATBD-for-saphir-rain-ver2",
+    "url": "https://www.mosdac.gov.in/docs/ATBD-for-saphir-rain-ver2.pdf",
+    "source_page": "https://www.mosdac.gov.in/megha-tropiques-references"
+  },
+  {
+    "title": "MT_ATBD_ver3",
+    "url": "https://www.mosdac.gov.in/docs/MT_ATBD_ver3_Final2.pdf",
+    "source_page": "https://www.mosdac.gov.in/megha-tropiques-references"
+  },
+  {
+    "title": "STQC.pdf",
+    "url": "https://www.mosdac.gov.in/docs/STQC.pdf",
+    "source_page": "https://www.mosdac.gov.in/megha-tropiques-references"
+  },
+  {
+    "title": "SARAL Products Handbook",
+    "url": "https://www.mosdac.gov.in/docs/SALP-MU-M-OP-15984-CN_0102[1]_handbook.pdf",
+    "source_page": "https://www.mosdac.gov.in/saral-references"
+  },
+  {
+    "title": "SARAL User Products",
+    "url": "https://www.mosdac.gov.in/docs/SALP-ST-M-EA-15839-CN_0202[1]_vol20_products.pdf",
+    "source_page": "https://www.mosdac.gov.in/saral-references"
+  },
+  {
+    "title": "STQC.pdf",
+    "url": "https://www.mosdac.gov.in/docs/STQC.pdf",
+    "source_page": "https://www.mosdac.gov.in/saral-references"
+  },
+  {
+    "title": "STQC.pdf",
+    "url": "https://www.mosdac.gov.in/docs/STQC.pdf",
+    "source_page": "https://www.mosdac.gov.in/atlases"
   },
   {
     "title": "https://mosdac.gov.in/software/SACRS2_Package.rar",

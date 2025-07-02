@@ -6,8 +6,7 @@ import re
 from sentence_transformers import SentenceTransformer, util
 
 # Load once (can be optimized further)
-embed_model = SentenceTransformer("all-MiniLM-L6-v2")
-
+embed_model = SentenceTransformer("BAAI/bge-small-en-v1.5")
 
 # Paths and constants
 GRAPH_PATH = Path("outputs/knowledge_graph_normalized.json")
@@ -16,7 +15,7 @@ MAX_TRIPLES = 8
 MAX_CHUNKS = 3
 
 def load_graph():
-    """Load the knowledge graph"""
+    """Load the knowledge graph."""
     try:
         with open(GRAPH_PATH, "r", encoding="utf-8") as f:
             return json.load(f)
@@ -24,9 +23,16 @@ def load_graph():
         print(f"Error loading graph: {e}")
         return {"nodes": [], "edges": []}
 
-def find_node_id(query, graph_data):
-    import difflib
+def sanitize_text(text):
+    """Sanitize text to remove invalid characters and normalize whitespace."""
+    if not isinstance(text, str):
+        return str(text)
+    text = re.sub(r'[\x00-\x1F\x7F]', '', text)  # Remove control characters
+    text = re.sub(r'\s+', ' ', text).strip()  # Normalize whitespace
+    return text
 
+def find_node_id(query, graph_data):
+    """Find the node ID in the graph using fuzzy and semantic matching."""
     nodes = graph_data["nodes"]
     labels = [node["label"] for node in nodes]
     label_to_id = {node["label"]: node["id"] for node in nodes}
@@ -48,18 +54,13 @@ def find_node_id(query, graph_data):
 
     return None, None
 
-
 def extract_node_facts(graph_data, node_id):
-    """Extract attributes and relationships for a specific node"""
+    """Extract attributes and relationships for a specific node."""
     attributes = []
     triples = []
     
     # Find the node
-    node = None
-    for n in graph_data["nodes"]:
-        if n["id"] == node_id:
-            node = n
-            break
+    node = next((n for n in graph_data["nodes"] if n["id"] == node_id), None)
     
     if node:
         # Extract node attributes
@@ -80,7 +81,7 @@ def extract_node_facts(graph_data, node_id):
     return attributes, triples
 
 def filter_graph_facts(triples, node_id):
-    """Format triples into readable facts"""
+    """Format triples into readable facts."""
     facts = []
     for subject, relation, obj in triples[:MAX_TRIPLES]:
         if subject == node_id:
@@ -90,7 +91,7 @@ def filter_graph_facts(triples, node_id):
     return facts
 
 def format_mixed_content(top_chunks):
-    """Format mixed content (documents + FAQs) for better presentation"""
+    """Format mixed content (documents + FAQs + raw data) for better presentation."""
     if not top_chunks:
         return "No relevant information found."
     
@@ -100,6 +101,7 @@ def format_mixed_content(top_chunks):
     complete_faqs = [chunk for chunk in top_chunks if chunk.get("type") == "faq_complete"]
     question_only_faqs = [chunk for chunk in top_chunks if chunk.get("type") == "faq_question_only"]
     docs = [chunk for chunk in top_chunks if chunk.get("type") == "document"]
+    raw_data_chunks = [chunk for chunk in top_chunks if chunk.get("type") == "raw_data"]
     
     # Format complete FAQs first (highest priority)
     if complete_faqs:
@@ -113,7 +115,6 @@ def format_mixed_content(top_chunks):
         formatted_sections.append("\n❔ **Common User Questions (answer based on available knowledge):**")
         for i, faq in enumerate(question_only_faqs):
             text = faq.get("text", "")
-            # Extract just the question part
             question_part = text.split('\n[Note:')[0].replace('Frequently Asked Question: ', '')
             formatted_sections.append(f"\n**User often asks:** {question_part}")
     
@@ -125,28 +126,29 @@ def format_mixed_content(top_chunks):
             source = doc.get("source", "unknown")
             formatted_sections.append(f"\n**[Document {i+1} - {source}]**\n{text}")
     
+    # Format Raw Data section
+    if raw_data_chunks:
+        formatted_sections.append("\n🔢 **Raw Data:**")
+        for i, raw_data in enumerate(raw_data_chunks):
+            text = raw_data.get("text", "")[:1200]  # Truncate long raw data
+            source = raw_data.get("source", "unknown")
+            formatted_sections.append(f"\n**[Raw Data {i+1} - {source}]**\n{text}")
+    
     return "\n".join(formatted_sections)
 
 def build_prompt(query, history, triples, top_chunks):
-    """Build the complete prompt for the LLM with enhanced FAQ support"""
+    """Build the complete prompt for the LLM with enhanced FAQ and raw data support."""
     
     # Format history
     history_str = ""
     if history:
-        history_items = []
-        for q, a in history[-MAX_HISTORY_TURNS:]:
-            history_items.append(f"User: {q}\nAssistant: {a}")
+        history_items = [f"User: {q}\nAssistant: {a}" for q, a in history[-MAX_HISTORY_TURNS:]]
         history_str = "\n\n".join(history_items)
     
     # Format triples
-    triple_str = ""
-    if triples:
-        triple_items = []
-        for subject, relation, obj in triples[:MAX_TRIPLES]:
-            triple_items.append(f"• {subject} --{relation}--> {obj}")
-        triple_str = "\n".join(triple_items)
+    triple_str = "\n".join([f"• {s} --{r}--> {o}" for s, r, o in triples[:MAX_TRIPLES]]) if triples else "No specific graph relationships found."
     
-    # Format mixed content (docs + FAQs)
+    # Format mixed content (docs + FAQs + raw data)
     context_str = format_mixed_content(top_chunks)
     
     # Try to find entity information
@@ -158,7 +160,6 @@ def build_prompt(query, history, triples, top_chunks):
         attributes, node_triples = extract_node_facts(graph_data, node_id)
         if attributes:
             entity_info = f"\n🛰️ {label} Information:\n" + "\n".join(attributes)
-        # Add node triples to the general triples
         triples.extend(node_triples)
         triple_str = "\n".join([f"• {s} --{r}--> {o}" for s, r, o in triples[:MAX_TRIPLES]])
     
@@ -183,7 +184,7 @@ Guidelines:
 {entity_info}
 
 📌 Graph Facts:
-{triple_str if triple_str else 'No specific graph relationships found.'}
+{triple_str}
 
 📚 **Knowledge Base:**
 {context_str}

@@ -5,14 +5,22 @@ import os
 from urllib.parse import urljoin
 
 PAGES_TO_CRAWL = [
-    "https://www.mosdac.gov.in/insat-3d-references",
-    "https://www.mosdac.gov.in/insat-3dr-references",
-    "https://www.mosdac.gov.in/scatsat-1-references",
-    "https://www.mosdac.gov.in/atlases",
-    "https://www.mosdac.gov.in/saral-altika",
-    "https://www.mosdac.gov.in/tools",
-    "https://www.mosdac.gov.in/indian-mainland-coastal-product",
+  "https://www.mosdac.gov.in/insat-3d-references",
+  "https://www.mosdac.gov.in/insat-3dr-references",
+  "https://www.mosdac.gov.in/scatsat-1-references",
+  "https://www.mosdac.gov.in/oceansat-2-references",
+  "https://www.mosdac.gov.in/oceansat3-references",
+  "https://www.mosdac.gov.in/megha-tropiques-references",
+  "https://www.mosdac.gov.in/saral-references",
+  "https://mosdac.gov.in/thredds/catalog.html",
+  "https://www.mosdac.gov.in/atlases",
+  "https://www.mosdac.gov.in/tools",
+  "https://www.mosdac.gov.in/indian-mainland-coastal-product",
+  "https://www.mosdac.gov.in/insat-3s-references",
 ]
+
+
+
 
 OUTPUT_FILE = "outputs/cleaned_json/documents.json"
 FILE_EXTENSIONS = [".pdf", ".docx", ".xlsx", ".zip", ".rar", ".tar.gz"]
