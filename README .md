@@ -86,3 +86,15 @@ mosdac_kg_project/
 
 ---
 
+**Note:** Some utility scripts (like `prompt_builder.py`, `entity_extractor.py`) are typically imported as modules and not run directly.
+
+---
+
+## Future Work
+
+- **Frontend Integration:** A frontend interface will be added in future commits.
+- **API/Service Layer:** Exposing backend functionality via REST or GraphQL API.
+- **Continuous Crawling:** Scheduling periodic data/FAQ updates.
+- **Enhanced Entity Linking:** Improved NLP for entity disambiguation and linking.
+
+---
