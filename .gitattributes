@@ -1,3 +1,1 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f2e76ddfb3729a52d40af96ddbe10ee710bcec3a66589a97a956dff84788b9ae
-size 128
+outputs/knowledge_graph_normalized.json filter=lfs diff=lfs merge=lfs -text
